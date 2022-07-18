@@ -1,0 +1,36 @@
+pipeline{
+    agent any
+
+    stages {    
+              stage('Restore packages'){
+              steps{
+                sh "dotnet restore"
+                }
+              }
+              stage('Clean'){
+                steps{
+                    sh "dotnet clean"
+                 }
+               }               
+              stage('Build'){
+               steps{
+                  sh "dotnet build"
+                }
+             } 
+             stage('Test: Unit Test'){
+               steps {
+                 sh "dotnet test"
+                 }
+              }                
+               stage('Publish'){
+                 steps{
+                   sh "dotnet publish %webAPIProjectFile% --framework netcoreapp2.1 --output %publishDirectory% --self-contained true --runtime osx.10.11-x64 "
+                 }
+                 post{
+                    success{
+                        archiveArtifacts artifacts: '*/bin/Debug/net6.0/.dll', followSymlinks: false
+                    }
+            }
+
+        }
+}
