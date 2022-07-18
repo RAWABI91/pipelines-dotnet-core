@@ -24,7 +24,7 @@ pipeline{
               }                
                stage('Publish'){
                  steps{
-                   sh "dotnet publish %webAPIProjectFile% --framework netcoreapp2.1 --output %publishDirectory% --self-contained true --runtime osx.10.11-x64 "
+                   sh "dotnet publish"
                  }
                  post{
                     success{
