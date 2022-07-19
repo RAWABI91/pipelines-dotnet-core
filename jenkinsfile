@@ -17,19 +17,26 @@ pipeline{
     }
     stages {    
               stage('Restore packages'){
-              steps{
-                sh "dotnet restore"
+                steps {
+                  bat "dotnet restore"
                 }
               }
               
-              stage('Build'){
-               steps{
-                  sh "dotnet build"
+
+              stage('Clean') {
+                steps {
+                  bat "dotnet clean"
                 }
+               }
+
+              stage('Build'){
+                  steps {
+                    bat "dotnet build --configuration Release"
+                  }
              } 
          stage('Test: Unit Test'){
                steps {
-                 sh "dotnet test"
+                 bat "dotnet test"
                  }
               } 
 
