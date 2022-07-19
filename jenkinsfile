@@ -24,7 +24,7 @@ pipeline{
               
               stage('Build'){
                steps{
-                  sh "dotnet build"
+                  sh "dotnet build "
                 }
              } 
          stage('Test: Unit Test'){
@@ -35,12 +35,11 @@ pipeline{
 
         stage('Quality Scan'){
             steps {
-
               sh '''
-                dotnet sonarscanner begin /k:"Roba-Almehmadi--2" /d:sonar.host.url="http://$SONAR_IP"  /d:sonar.login="$SONAR_TOKEN" /
-                dotnet build /
+                dotnet sonarscanner begin /k:"Roba-Almehmadi--2" /d:sonar.host.url="http://$SONAR_IP"  /d:sonar.login="$SONAR_TOKEN" \
+                dotnet build \
                 dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
-                '''
+               '''
 
             }
         }
@@ -50,7 +49,7 @@ pipeline{
 
                 sh "aws configure set region us-east-1"
                 sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
-               sh "dotnet publish"
+                
 
             }
         }
