@@ -21,14 +21,10 @@ pipeline{
                 sh "dotnet restore"
                 }
               }
-              stage('Clean'){
-                steps{
-                    sh "dotnet clean"
-                 }
-               }               
+              
               stage('Build'){
                steps{
-                  sh "dotnet build ubuntu.sln"
+                  sh "dotnet build "
                 }
              } 
          stage('Test: Unit Test'){
@@ -51,8 +47,10 @@ pipeline{
 
         stage('publish artefacts to  S3 Bucket') {
             steps {
+
                 sh "aws configure set region us-east-1"
                 sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
+                sh "dotnet publish"
 
             }
         }
