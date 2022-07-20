@@ -9,7 +9,7 @@ pipeline {
         AWS_EB_APP_VERSION = "${BUILD_ID}"
         AWS_EB_ENVIRONMENT = "Dotnetjenkins-env"
         SONAR_IP = "54.226.50.200"
-        SONAR_TOKEN = "sqp_45c30618c290c222e46cf17ee32bf30166682553"
+        SONAR_TOKEN = "sqp_cd9f2742def10e9f15a33a1b93875a152eecf556"
     }
     stages {
         stage('Restore') {
@@ -28,7 +28,16 @@ pipeline {
                 sh "dotnet test"
             }
         }
-
+      
+        stage('Quality Scan'){
+            steps {
+                sh '''
+                    dotnet sonarscanner begin /k:"Roba-Almehmadi" /d:sonar.host.url="http://$SONAR_IP"  /d:sonar.login="$SONAR_TOKEN"
+                    dotnet build
+                    dotnet sonarscanner end /d:sonar.login=$SONAR_TOKEN
+                '''
+            }
+        }
         stage('Publish') {
             steps {
                 sh "dotnet publish"
