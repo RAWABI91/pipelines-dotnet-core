@@ -9,7 +9,6 @@ pipeline {
         AWS_EB_APP_VERSION = "${BUILD_ID}"
         AWS_EB_ENVIRONMENT = "Javawebapp-env"
         SONAR_IP = "54.226.50.200"
-        SONAR_TOKEN = "sqp_4ee555e088552d0be1bef31f458b562db149889f"
     }
     stages {
         stage('Restore') {
