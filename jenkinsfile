@@ -5,11 +5,11 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
         AWS_S3_BUCKET = "artifact-bucket-repo-roba"
         ARTIFACT_NAME = "hello-world.dll"
-        AWS_EB_APP_NAME = "dotnet-jenkins"
+        AWS_EB_APP_NAME = "dotnet-app"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
-        AWS_EB_ENVIRONMENT = "Dotnetjenkins-env"
+        AWS_EB_ENVIRONMENT = "Dotnetapp-env1"
         SONAR_IP = "54.226.50.200"
-        SONAR_TOKEN = "sqp_cd9f2742def10e9f15a33a1b93875a152eecf556"
+        SONAR_TOKEN = "sqp_37a26c2ce1f6f60deb7d566f84bebcab58e8f411"
     }
     stages {
         stage('Restore') {
